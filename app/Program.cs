@@ -16,12 +16,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-List<Album> albums = DbReader.LoadJson();
+List<Album> albums = DbReader.LoadJson("db/db.json");
 
 app.MapGet("/api/v1/music/recommend", () =>
 {
     Random random = new Random();
-    Album album = albums[random.Next(albums.Count)];
+    int rand_index = random.Next(albums.Count);
+    Album album = albums[rand_index];
+    
     return new AlbumRecord(
         album.artist, 
         album.title, 

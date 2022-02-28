@@ -6,6 +6,7 @@ $ cd dotnet-lucky-music/app
 
 # Install Newtonsoft package
 $ dotnet add package Newtonsoft.Json --version 13.0.1
+$ dotnet add package Microsoft.AspNetCore.Mvc.Testing --version 6.0.2
 $ dotnet build
 $ dotnet run
 ```
