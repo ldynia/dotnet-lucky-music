@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj": {}
+    "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj": {}
   },
   "projects": {
-    "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj": {
+    "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj",
+        "projectUniqueName": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj",
         "projectName": "dotnet-lucky-music",
-        "projectPath": "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj",
-        "packagesPath": "C:\\Users\\xldyn\\.nuget\\packages\\",
-        "outputPath": "C:\\code\\orsted\\dotnet-lucky-music\\app\\obj\\",
+        "projectPath": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj",
+        "packagesPath": "/home/lukas/.nuget/packages/",
+        "outputPath": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\xldyn\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/lukas/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,6 +53,16 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
             }
           },
           "imports": [
@@ -73,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
         }
       }
     }
