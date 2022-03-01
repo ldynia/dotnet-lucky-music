@@ -4,10 +4,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+// TODO: Make UnitTest
+// - Code coverage
+// - Conncet to Redis
+// - Security scann
+// - Dockerize https://docs.docker.com/samples/dotnetcore/
 // https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-6.0
+// https://jakeydocs.readthedocs.io/en/latest/testing/integration-testing.html#
 
 public class APITests
-// public class APITests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient client;
 
