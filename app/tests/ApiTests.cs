@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+// https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-6.0
 
 public class APITests
 // public class APITests : IClassFixture<WebApplicationFactory<Program>>
@@ -26,6 +27,6 @@ public class APITests
 
         // Assert
         response.EnsureSuccessStatusCode(); // Status Code 200-299
-        Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
+        Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
     }
 }
