@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj": {}
+    "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj": {}
   },
   "projects": {
-    "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj": {
+    "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj",
+        "projectUniqueName": "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj",
         "projectName": "dotnet-lucky-music",
-        "projectPath": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/dotnet-lucky-music.csproj",
-        "packagesPath": "/home/lukas/.nuget/packages/",
-        "outputPath": "/home/lukas/Code/dotnet/dotnet-lucky-music/app/obj/",
+        "projectPath": "C:\\code\\orsted\\dotnet-lucky-music\\app\\dotnet-lucky-music.csproj",
+        "packagesPath": "C:\\Users\\xldyn\\.nuget\\packages\\",
+        "outputPath": "C:\\code\\orsted\\dotnet-lucky-music\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/lukas/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\xldyn\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -45,6 +45,10 @@
             "Microsoft.AspNetCore.Mvc.Testing": {
               "target": "Package",
               "version": "[6.0.2, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -83,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

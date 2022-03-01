@@ -5,31 +5,27 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 
-public class IntegrationTest
-// public class IntegrationTest: IClassFixture<WebApplicationFactory<Program>>
+public class APITests
+// public class APITests : IClassFixture<WebApplicationFactory<Program>>
 {
-    protected readonly HttpClient TestClient;
+    private readonly HttpClient client;
 
-    protected IntegrationTest()
+    public APITests()
     {
-
-        var appFactory = new WebApplicationFactory<Program>()
-        .WithWebHostBuilder(builder =>
-        {
-            // ... Configure test services
-        });
-        TestClient = appFactory.CreateClient();
+        // Arrange
+        var application = new WebApplicationFactory<Program>();
+        client = application.CreateClient();
     }
 
     [Theory]
     [InlineData("/api/v1/music/recommend")]
-    public async Task ApiTest(string url)
+    public async Task IntegrationTest(string url)
     {
         // Act
-        var response = await TestClient.GetAsync(url);
+        var response = await client.GetAsync(url);
 
         // Assert
-        response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode(); // Status Code 200-299
         Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
     }
 }
