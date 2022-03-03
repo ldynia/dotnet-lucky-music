@@ -1,3 +1,7 @@
+using StackExchange.Redis;
+using System;
+using System.Threading.Tasks;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -12,6 +16,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+int REDIS_DB_INDEX = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) ? Int32.Parse(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) : 1;
+string REDIS_HOST = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_HOST")) ? Environment.GetEnvironmentVariable("REDIS_HOST") : "redis-db";
+string REDIS_PORT = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_PORT")) ? Environment.GetEnvironmentVariable("REDIS_PORT") : "6379";
+
+// Redis connection
+ConfigurationOptions dbRedisConfig = new ConfigurationOptions{
+    DefaultDatabase = REDIS_DB_INDEX,
+    EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
+};
+ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(dbRedisConfig);
 
 List<Album> albums = DbReader.LoadJson("db/db.json");
 
@@ -30,6 +45,23 @@ app.MapGet("/api/v1/music/recommend", () =>
         album.cover
     );
 }).WithName("GetAlbumRecord");
+
+// TODO
+app.MapGet("/api/v1/recommendations/count", () => {}).WithName("GetRecommendationStats");
+
+// TODO 500
+// https://docs.redis.com/latest/rs/references/client_references/client_csharp/
+app.MapGet("/healthz/ready", () => 
+{
+    var db = redis.GetDatabase();
+    var pong = db.PingAsync();
+    Console.WriteLine("Redis Pong Start");
+    Console.WriteLine(pong);
+    Console.WriteLine("Redis Pong End");
+}).WithName("GetStatusReady");
+
+// TODO 200
+app.MapGet("/healthz/alive", () => {}).WithName("GetStatusAlive");
 
 app.Run();
 
