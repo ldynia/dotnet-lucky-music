@@ -22,18 +22,32 @@ int REDIS_DB_INDEX = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("R
 string REDIS_HOST = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_HOST")) ? Environment.GetEnvironmentVariable("REDIS_HOST") : "redis-db";
 string REDIS_PORT = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_PORT")) ? Environment.GetEnvironmentVariable("REDIS_PORT") : "6379";
 
-// Redis connection
-ConfigurationOptions dbRedisConfig = new ConfigurationOptions{
-    DefaultDatabase = REDIS_DB_INDEX,
-    EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
-};
+bool redis_works = true;
+try {
+  // Redis connection
+  ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(new ConfigurationOptions {
+      DefaultDatabase = REDIS_DB_INDEX,
+      EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
+  });
+} catch (Exception ex) {
+  redis_works = false;
+}
+
 List<Album> albums = DbReader.LoadJson("db/db.json");
 
+// TODO
+app.MapGet("/api/v1/recommendations/count", () => {});
 app.MapGet("/api/v1/music/recommend", () =>
 {
     Random random = new Random();
     int rand_index = random.Next(albums.Count);
     Album album = albums[rand_index];
+
+    // TODO: increment counter
+    // if (redis_works) {
+    //   var db = redis.GetDatabase();
+    //   var pong = db.PingAsync();
+    // }
 
     return new AlbumRecord(
         album.artist,
@@ -43,35 +57,15 @@ app.MapGet("/api/v1/music/recommend", () =>
         album.genre,
         album.cover
     );
-}).WithName("GetAlbumRecord");
+});
 
-// TODO
-app.MapGet("/api/v1/recommendations/count", () => {}).WithName("GetRecommendationStats");
-
-// TODO 500
-// https://docs.redis.com/latest/rs/references/client_references/client_csharp/
+app.MapGet("/healthz/alive", () => {});
 app.MapGet("/healthz/ready", () =>
 {
-    try {
-      ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(dbRedisConfig);
-    } catch (Exception ex) {
-      return Results.StatusCode(200);
+    if (!redis_works) {
+      return Results.StatusCode(500);
     }
     return Results.StatusCode(200);
-    // var db = redis.GetDatabase();
-    // var pong = db.PingAsync();
-    // Console.WriteLine("Redis Pong Start");
-    // Console.WriteLine(pong);
-    // Console.WriteLine("Redis Pong End");
-}).WithName("GetStatusReady");
-
-// TODO 200
-// app.MapDefaultControllerRoute();
-
-app.MapGet("/test", () => {
-  return Results.StatusCode(400);
 });
 
 app.Run();
-
-record AlbumRecord(string artist, string title, int year, string studio, string[] genre, string cover) {}

@@ -1,4 +1,12 @@
 using Newtonsoft.Json;
+record AlbumRecord(
+  string artist,
+  string title,
+  int year,
+  string studio,
+  string[] genre,
+  string cover
+){}
 
 public class Album
 {
@@ -17,7 +25,7 @@ class DbReader
         // TODO: try catch
         StreamReader r = new StreamReader(path);
         string json = r.ReadToEnd();
-        
+
         List<Album> albums = JsonConvert.DeserializeObject<List<Album>>(json);
         return albums;
     }
