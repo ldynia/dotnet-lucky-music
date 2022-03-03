@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -26,8 +27,6 @@ ConfigurationOptions dbRedisConfig = new ConfigurationOptions{
     DefaultDatabase = REDIS_DB_INDEX,
     EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
 };
-ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(dbRedisConfig);
-
 List<Album> albums = DbReader.LoadJson("db/db.json");
 
 app.MapGet("/api/v1/music/recommend", () =>
@@ -51,17 +50,27 @@ app.MapGet("/api/v1/recommendations/count", () => {}).WithName("GetRecommendatio
 
 // TODO 500
 // https://docs.redis.com/latest/rs/references/client_references/client_csharp/
-app.MapGet("/healthz/ready", () => 
+app.MapGet("/healthz/ready", () =>
 {
-    var db = redis.GetDatabase();
-    var pong = db.PingAsync();
-    Console.WriteLine("Redis Pong Start");
-    Console.WriteLine(pong);
-    Console.WriteLine("Redis Pong End");
+    try {
+      ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(dbRedisConfig);
+    } catch (Exception ex) {
+      return Results.StatusCode(200);
+    }
+    return Results.StatusCode(200);
+    // var db = redis.GetDatabase();
+    // var pong = db.PingAsync();
+    // Console.WriteLine("Redis Pong Start");
+    // Console.WriteLine(pong);
+    // Console.WriteLine("Redis Pong End");
 }).WithName("GetStatusReady");
 
 // TODO 200
-app.MapGet("/healthz/alive", () => {}).WithName("GetStatusAlive");
+// app.MapDefaultControllerRoute();
+
+app.MapGet("/test", () => {
+  return Results.StatusCode(400);
+});
 
 app.Run();
 
