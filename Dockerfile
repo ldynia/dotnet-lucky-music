@@ -1,21 +1,21 @@
 # Build artifact image
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS BUILDER
 
-WORKDIR /app
-COPY app/ ./
+WORKDIR /src
+COPY app/ /src/app
+COPY tests/ /src/tests
 
-RUN dotnet restore
-RUN dotnet publish -c Release -o out
+RUN dotnet restore /src/app/lucky-music.csproj
+RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 
 WORKDIR /app
 
-COPY --from=BUILDER /app/out ./
-RUN ls -l /app
+COPY --from=BUILDER /src/app/out ./
 
 ARG ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
 
-ENTRYPOINT ["dotnet", "dotnet-lucky-music.dll"]
+ENTRYPOINT ["dotnet", "lucky-music.dll"]
