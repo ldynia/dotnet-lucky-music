@@ -38,7 +38,7 @@ curl http://localhost/api/v1/music/recommend
 
 ```bash
 docker network create app-backend
-docker run --detach --name redis-db --network app-backend --rm redis redis-server --save 60 1 --loglevel warning
+docker run --detach --name redis --network app-backend --rm redis redis-server --save 60 1 --loglevel warning
 docker run --detach --name music-app --publish 80:80 --rm --network app-backend lucky-music
-docker exec music-app nc -zvw 1 redis-db 6379
+docker exec music-app nc -zvw 1 redis 6379
 ```

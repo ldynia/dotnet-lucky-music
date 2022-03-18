@@ -18,36 +18,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-int REDIS_DB_INDEX = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) ? Int32.Parse(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) : 1;
-string REDIS_HOST = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_HOST")) ? Environment.GetEnvironmentVariable("REDIS_HOST") : "redis-db";
-string REDIS_PORT = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_PORT")) ? Environment.GetEnvironmentVariable("REDIS_PORT") : "6379";
-
-bool redis_works = true;
-try {
-  // Redis connection
-  ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(new ConfigurationOptions {
-      DefaultDatabase = REDIS_DB_INDEX,
-      EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
-  });
-} catch (Exception ex) {
-  redis_works = false;
-}
-
 List<Album> albums = DbReader.LoadJson("db/db.json");
 
-// TODO
-app.MapGet("/api/v1/recommendations/count", () => {});
 app.MapGet("/api/v1/music/recommend", () =>
 {
     Random random = new Random();
     int rand_index = random.Next(albums.Count);
     Album album = albums[rand_index];
-
-    // TODO: increment counter
-    // if (redis_works) {
-    //   var db = redis.GetDatabase();
-    //   var pong = db.PingAsync();
-    // }
 
     return new AlbumRecord(
         album.artist,
@@ -59,13 +36,26 @@ app.MapGet("/api/v1/music/recommend", () =>
     );
 });
 
-app.MapGet("/healthz/alive", () => {});
+app.MapGet("/healthz/alive", () => {
+  return Results.StatusCode(200);
+});
+
 app.MapGet("/healthz/ready", () =>
 {
-    if (!redis_works) {
+    int REDIS_DB_INDEX = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) ? Int32.Parse(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) : 1;
+    string REDIS_HOST = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_HOST")) ? Environment.GetEnvironmentVariable("REDIS_HOST") : "redis";
+    string REDIS_PORT = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_PORT")) ? Environment.GetEnvironmentVariable("REDIS_PORT") : "6379";
+    
+    // test redis connection
+    try {
+      ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(new ConfigurationOptions {
+          DefaultDatabase = REDIS_DB_INDEX,
+          EndPoints = {$"{REDIS_HOST}:{REDIS_PORT}"}
+      });
+      return Results.StatusCode(200);
+    } catch (Exception ex) {
       return Results.StatusCode(500);
     }
-    return Results.StatusCode(200);
 });
 
 app.Run();

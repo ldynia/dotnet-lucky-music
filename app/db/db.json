@@ -4,19 +4,19 @@
     "year": 1973,
     "studio": "Abbey Road, London",
     "genre": ["Progressive rock", "Psychedelia"],
-    "cover": "https://miro.medium.com/max/1400/1*8FkvzbSdSJ4HNxtuZo5kLg.jpeg"
+    "poster": "https://miro.medium.com/max/1400/1*8FkvzbSdSJ4HNxtuZo5kLg.jpeg"
 }, {
     "artist": "The Black Keys",
     "title": "Brothers",
     "year": 2010,
     "studio": "The Black Keys; Mark Neill",
     "genre": ["Blues rock", "Garage rock"],
-    "cover": "https://m.media-amazon.com/images/I/71Ftrs+B53L._SL1425_.jpg"
+    "poster": "https://m.media-amazon.com/images/I/71Ftrs+B53L._SL1425_.jpg"
 }, {
     "artist": "Nirvana",
     "title": "Nevermind",
     "year": 1991,
     "studio": "Sound City ",
     "genre": ["Grunge", "Alternative rock"],
-    "cover": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/05/14/11/music-nirvana-nevermind.jpg"
+    "poster": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/05/14/11/music-nirvana-nevermind.jpg"
 }]
