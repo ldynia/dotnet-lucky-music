@@ -26,14 +26,14 @@ app.MapGet("/api/v1/music/recommend", () =>
     int rand_index = random.Next(albums.Count);
     Album album = albums[rand_index];
 
-    return new AlbumRecord(
+    return new AlbumRecord[] {new AlbumRecord(
         album.artist,
         album.title,
         album.year,
         album.studio,
         album.genre,
-        album.cover
-    );
+        album.poster
+    )};
 });
 
 app.MapGet("/healthz/alive", () => {

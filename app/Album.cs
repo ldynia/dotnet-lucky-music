@@ -5,7 +5,7 @@ record AlbumRecord(
   int year,
   string studio,
   string[] genre,
-  string cover
+  string poster
 ){}
 
 public class Album
@@ -15,7 +15,7 @@ public class Album
     public int year = 0;
     public string studio = "";
     public string[] genre = {};
-    public string cover = "";
+    public string poster = "";
 }
 
 class DbReader
