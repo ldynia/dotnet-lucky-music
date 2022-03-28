@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS BUILDER
 WORKDIR /src
 COPY app/ /src/app
 COPY tests/ /src/tests
+COPY scripts/ /src/scripts
 
 RUN dotnet restore /src/app/lucky-music.csproj
 RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
