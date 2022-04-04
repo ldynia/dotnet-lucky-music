@@ -24,8 +24,8 @@ git clone https://github.com/ldynia/dotnet-lucky-music.git
 cd dotnet-lucky-music
 
 # Building and running docker container
-docker build --tag lucky-music-dev -f Dockerfile.dev --build-arg ASPNETCORE_ENVIRONMENT=Development .
-docker build --tag lucky-music-prod -f Dockerfile.prod --build-arg ASPNETCORE_ENVIRONMENT=Production .
+docker build --tag lucky-music-dev -f docker/Dockerfile.dev --build-arg ASPNETCORE_ENVIRONMENT=Development .
+docker build --tag lucky-music-prod -f docker/Dockerfile.prod --build-arg ASPNETCORE_ENVIRONMENT=Production .
 docker run --detach --name music-app-dev --publish 80:80 --rm lucky-music-dev
 docker run --detach --name music-app-prod --publish 80:80 --rm lucky-music-prod
 docker ps

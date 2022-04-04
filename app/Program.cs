@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-List<Album> albums = DbReader.LoadJson("/src/app/db/db.json");
+List<Album> albums = DbReader.LoadJson("/src/db/db.json");
 
 app.MapGet("/api/v1/music/recommend", () =>
 {
@@ -45,7 +45,7 @@ app.MapGet("/healthz/ready", () =>
     int REDIS_DB_INDEX = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) ? Int32.Parse(Environment.GetEnvironmentVariable("REDIS_DB_INDEX")) : 1;
     string REDIS_HOST = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_HOST")) ? Environment.GetEnvironmentVariable("REDIS_HOST") : "redis";
     string REDIS_PORT = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_PORT")) ? Environment.GetEnvironmentVariable("REDIS_PORT") : "6379";
-    
+
     // test redis connection
     try {
       ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(new ConfigurationOptions {

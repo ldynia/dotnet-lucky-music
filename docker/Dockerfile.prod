@@ -12,6 +12,7 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
 
 WORKDIR /src
 COPY app/ /src/app
+COPY db/ /src/db
 COPY tests/ /src/tests
 COPY scripts/ /src/scripts
 
@@ -34,7 +35,7 @@ WORKDIR /src
 RUN mkdir -p /src/app/db/
 
 COPY --from=BUILDER /src/app/out /src
-COPY --from=BUILDER /src/app/db/db.json /src/app/db/db.json
+COPY --from=BUILDER /src/db/db.json /src/db/db.json
 
 EXPOSE $PORT
 

@@ -12,7 +12,8 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
 
 WORKDIR /src
 COPY app/ /src/app
-COPY scripts/ /src/scripts
+COPY db/ /src/db
+COPY scripts/ /sr1c/scripts
 COPY tests/ /src/tests
 
 RUN rm -rf /src/app/obj/ /src/app/out/ /src/app/bin/ /src/tests/obj/ /src/tests/out/ /src/tests/bin/
