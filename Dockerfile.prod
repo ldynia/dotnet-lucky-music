@@ -1,6 +1,15 @@
 # Build artifact image
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS BUILDER
 
+# Build args
+ARG ASPNETCORE_ENVIRONMENT=Production \
+    PORT=80
+
+# Environment variables
+ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
+    ASPNETCORE_URLS=http://+:$PORT \
+    PORT=$PORT
+
 WORKDIR /src
 COPY app/ /src/app
 COPY tests/ /src/tests
@@ -11,18 +20,20 @@ RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 
-# Setup build args
+# Build args
 ARG ASPNETCORE_ENVIRONMENT=Production \
-    PORT=8080
+    PORT=80
 
-# Setup environment variables
+# Environment variables
 ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
     ASPNETCORE_URLS=http://+:$PORT \
     PORT=$PORT
 
-WORKDIR /app
+WORKDIR /src
+RUN mkdir -p /src/app/db/
 
-COPY --from=BUILDER /src/app/out ./
+COPY --from=BUILDER /src/app/out /src
+COPY --from=BUILDER /src/app/db/db.json /src/app/db/db.json
 
 EXPOSE $PORT
 

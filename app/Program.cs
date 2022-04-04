@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-List<Album> albums = DbReader.LoadJson("db/db.json");
+List<Album> albums = DbReader.LoadJson("/src/app/db/db.json");
 
 app.MapGet("/api/v1/music/recommend", () =>
 {

@@ -11,17 +11,17 @@
 **/*.sln.docstates
 
 # Build results
-app/[Dd]ebug/
-app/[Dd]ebugPublic/
-app/[Rr]elease/
-app/[Rr]eleases/
-app/x64/
-app/x86/
-app/build/
-app/bld/
-app/[Bb]in/
-app/[Oo]bj/
-app/[Oo]ut/
-app/msbuild.log
-app/msbuild.err
-app/msbuild.wrn
+**/[Dd]ebug/
+**/[Dd]ebugPublic/
+**/[Rr]elease/
+**/[Rr]eleases/
+**/x64/
+**/x86/
+**/build/
+**/bld/
+**/[Bb]in/
+**/[Oo]bj/
+**/[Oo]ut/
+**/msbuild.log
+**/msbuild.err
+**/msbuild.wrn

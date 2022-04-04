@@ -1,0 +1,26 @@
+# Build artifact image
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
+
+# Build args
+ARG ASPNETCORE_ENVIRONMENT=Development \
+    PORT=80
+
+# Environment variables
+ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
+    ASPNETCORE_URLS=http://+:$PORT \
+    PORT=$PORT
+
+WORKDIR /src
+COPY app/ /src/app
+COPY scripts/ /src/scripts
+COPY tests/ /src/tests
+
+RUN rm -rf /src/app/obj/ /src/app/out/ /src/app/bin/ /src/tests/obj/ /src/tests/out/ /src/tests/bin/
+RUN dotnet restore /src/tests/tests.csproj
+RUN dotnet restore /src/app/lucky-music.csproj
+RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
+RUN dotnet dev-certs https --trust
+
+EXPOSE $PORT
+
+ENTRYPOINT dotnet run --urls $ASPNETCORE_URLS --project /src/app/
