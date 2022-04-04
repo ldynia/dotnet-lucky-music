@@ -13,6 +13,7 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
 WORKDIR /src
 COPY app/ /src/app
 COPY tests/ /src/tests
+COPY scripts/ /src/scripts
 
 RUN dotnet restore /src/app/lucky-music.csproj
 RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
