@@ -8,6 +8,7 @@ ARG ASPNETCORE_ENVIRONMENT=Development \
 # Environment variables
 ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
     ASPNETCORE_URLS=http://+:$PORT \
+    PATH="${PATH}:/root/.dotnet/tools" \
     PORT=$PORT
 
 WORKDIR /src
@@ -21,6 +22,7 @@ RUN dotnet restore /src/tests/tests.csproj
 RUN dotnet restore /src/app/lucky-music.csproj
 RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out
 RUN dotnet dev-certs https --trust
+RUN dotnet tool install -g dotnet-reportgenerator-globaltool
 
 EXPOSE $PORT
 
