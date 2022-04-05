@@ -14,7 +14,7 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
 WORKDIR /src
 COPY app/ /src/app
 COPY db/ /src/db
-COPY scripts/ /sr1c/scripts
+COPY scripts/ /src/scripts
 COPY tests/ /src/tests
 
 RUN dotnet restore /src/tests/tests.csproj
