@@ -26,7 +26,7 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura  /p:Coverl
 reportgenerator -reports:"/tmp/coverage/coverage.cobertura.xml" -targetdir:"/tmp/coverage/htmlcov" -reporttypes:Html > /tmp/coverage/report.log 2>&1
 
 TEST_SUCCEED=$(cat /tmp/coverage/test.log | grep -E 'Failed:\s+0')
-if [ "$TEST_SUCCEED" ]; then
+if [ ! "$TEST_SUCCEED" ]; then
     printf "${RED}ERROR:${YELLOW} Unit test has failed! Please investigate below log${NC}\n"
     cat /tmp/coverage/test.log
     EXIT_CODE=1
