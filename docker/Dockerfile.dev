@@ -17,7 +17,6 @@ COPY db/ /src/db
 COPY scripts/ /sr1c/scripts
 COPY tests/ /src/tests
 
-RUN rm -rf /src/app/obj/ /src/app/out/ /src/app/bin/ /src/tests/obj/ /src/tests/out/ /src/tests/bin/
 RUN dotnet restore /src/tests/tests.csproj
 RUN dotnet restore /src/app/lucky-music.csproj
 RUN dotnet publish /src/app/lucky-music.csproj -c Release -o /src/app/out

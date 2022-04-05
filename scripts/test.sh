@@ -9,8 +9,15 @@ EXIT_CODE=0
 
 printf "${YELLOW}Testing Started${NC}\n"
 
+# Set up file system
 mkdir -p /tmp/coverage
-rm -rf /tmp/coverage/*
+rm -rf /tmp/coverage/* \
+    /src/app/obj/ \
+    /src/app/out/ \
+    /src/app/bin/ \
+    /src/tests/obj/ \
+    /src/tests/out/ \
+    /src/tests/bin/
 
 # Unit Tests Project
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=/tmp/coverage/ /src/tests > /tmp/coverage/test.log 2>&1
