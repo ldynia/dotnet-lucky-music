@@ -12,10 +12,7 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT \
     PORT=$PORT
 
 WORKDIR /src
-COPY app/ /src/app
-COPY db/ /src/db
-COPY scripts/ /src/scripts
-COPY tests/ /src/tests
+COPY ./ /src
 
 RUN dotnet restore /src/tests/tests.csproj
 RUN dotnet restore /src/app/lucky-music.csproj
