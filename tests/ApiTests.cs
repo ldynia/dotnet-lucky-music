@@ -4,12 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-// TODO: Make UnitTest
-// - Connect to Redis
-// - Security scan
-// https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-6.0
-// https://jakeydocs.readthedocs.io/en/latest/testing/integration-testing.html#
-
 namespace tests;
 
 public class APITests
@@ -30,9 +24,8 @@ public class APITests
         // Act
         var response = await client.GetAsync(url);
 
-        // Assert
-        response.EnsureSuccessStatusCode(); // Status Code 200-299
+        // Assert status code 200-299 and is json
+        response.EnsureSuccessStatusCode(); 
         Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
-        // Assert.Equal("2", "22");
     }
 }
